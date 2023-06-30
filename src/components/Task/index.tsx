@@ -1,7 +1,14 @@
 import { CheckCircle } from "phosphor-react-native";
 import { BaseIcon, TaskContainer, TaskContent, TrashIcon } from "./styles";
+import { TouchableOpacity } from "react-native"
 
-export function Task() {
+interface TaskProps {
+    content: string;
+    onRemoveTask: () => void;
+}
+
+
+export function Task({ content, onRemoveTask }: TaskProps) {
     return (
         <TaskContainer>
             <BaseIcon>
@@ -11,11 +18,13 @@ export function Task() {
                     size={25}
                 />
             </BaseIcon>
-            <TaskContent>Integer urna interdum massa libero auctor neque turpis turpis semper.</TaskContent>
-            <TrashIcon 
-                size={20} 
-                color="#808080"
-            />
+            <TaskContent>{content}</TaskContent>
+            <TouchableOpacity onPress={onRemoveTask}>
+                <TrashIcon 
+                    size={20} 
+                    color="#808080"
+                />
+            </TouchableOpacity>
         </TaskContainer>
     )
 }

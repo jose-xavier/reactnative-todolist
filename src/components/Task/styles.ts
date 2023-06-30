@@ -11,10 +11,12 @@ export const TaskContainer = styled.View`
     gap: 8px;
     overflow: hidden;
     align-items: center;
+    margin-top: 8px;
     
 `
 
 export const TaskContent = styled.Text`
+    flex: 1;
     color: #F2F2F2;
     font-size: 14px;
     flex-shrink: 1;
@@ -24,7 +26,7 @@ export const TaskContent = styled.Text`
 export const TrashIcon = styled(Trash)`
     color: #4EA8DE;
 `
-export const BaseIcon = styled.View.attrs({
+export const BaseIcon = styled.TouchableOpacity.attrs({
     backgroundColor: "#FFF"
 })`
     justify-content: center;
