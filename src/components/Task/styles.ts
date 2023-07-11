@@ -1,5 +1,10 @@
 import { CheckCircle, Trash } from "phosphor-react-native";
+import { css } from "styled-components";
 import styled from "styled-components/native";
+
+interface IconProps {
+    situation: "done" | "a"
+}
 
 
 export const TaskContainer = styled.View`
@@ -15,18 +20,24 @@ export const TaskContainer = styled.View`
     
 `
 
-export const TaskContent = styled.Text`
+export const TaskContent = styled.Text<IconProps>`
     flex: 1;
-    color: #F2F2F2;
     font-size: 14px;
     flex-shrink: 1;
-    text-align: justify;    
+    text-align: justify;
+    color: #F2F2F2;
+    
+    ${props => props.situation === "done" && css`
+        text-decoration: line-through;
+        color: #808080;
+    ` 
+    }
 `
 
 export const TrashIcon = styled(Trash)`
     color: #4EA8DE;
 `
-export const BaseIcon = styled.TouchableOpacity.attrs({
+export const CheckCircleContainer = styled.View.attrs({
     backgroundColor: "#FFF"
 })`
     justify-content: center;
@@ -34,4 +45,20 @@ export const BaseIcon = styled.TouchableOpacity.attrs({
     border-radius: 50px;
     height: 20px;
     width: 20px;
+`
+
+export const IconContainer = styled.View<IconProps>`
+    ${props => props.situation === 'done' ? css`
+        background: #fff;
+        border-radius: 50px;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        width: 20px;
+    ` : css`
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        width: 20px;
+    `}
 `

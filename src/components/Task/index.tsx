@@ -1,24 +1,56 @@
-import { CheckCircle } from "phosphor-react-native";
-import { BaseIcon, TaskContainer, TaskContent, TrashIcon } from "./styles";
+import { CheckCircle, Circle } from "phosphor-react-native";
+import { IconContainer , TaskContainer, TaskContent, TrashIcon } from "./styles";
 import { TouchableOpacity } from "react-native"
 
 interface TaskProps {
+    id: string;
     content: string;
+    isDone: boolean;
     onRemoveTask: () => void;
+    onToggleTask: (id: string) => void;
 }
 
 
-export function Task({ content, onRemoveTask }: TaskProps) {
+export function Task({ content, onRemoveTask, onToggleTask, isDone, id }: TaskProps) {
+    
+    function handleToggleTask() {
+        onToggleTask(id)
+    }
     return (
         <TaskContainer>
-            <BaseIcon>
-                <CheckCircle
-                    color= "#5E60CE"
-                    weight="fill"
-                    size={25}
-                />
-            </BaseIcon>
-            <TaskContent>{content}</TaskContent>
+            
+                <TouchableOpacity onPress={handleToggleTask}>
+                
+                    {
+                        isDone === true ? 
+                            <IconContainer situation="done">
+                                <CheckCircle 
+                                    color= "#5E60CE"
+                                    weight="fill"
+                                    size={25}
+                                />
+                            </IconContainer>
+                           
+                        
+                         : 
+                            <IconContainer situation="a">
+                                <Circle 
+                                    size={25} 
+                                    color= "#5E60CE"
+                                />
+                            </IconContainer>
+                       
+                    }
+                    </TouchableOpacity>
+            
+                    {
+                        isDone === true ?
+                            <TaskContent situation="done">{content}</TaskContent>
+                        :
+                            <TaskContent situation="a">{content}</TaskContent>
+                    }
+                
+            
             <TouchableOpacity onPress={onRemoveTask}>
                 <TrashIcon 
                     size={20} 

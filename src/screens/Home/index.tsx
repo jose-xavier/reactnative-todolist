@@ -32,6 +32,14 @@ export function Home() {
        setTasks( tasks => tasks.filter( task => task.id !== id ))
     }
 
+    function toggleTask(id: string) {
+        const tasksWithChangedSituation = tasks.map( task => task.id === id ? {...task, isDone: !task.isDone}: task)
+
+        setTasks(tasksWithChangedSituation)
+    }
+
+    const tasksDoned = tasks.filter(task => task.isDone === true)
+
     console.log(tasks)
     return (
         <HomeContainer>
@@ -60,7 +68,7 @@ export function Home() {
                 <InfoTaskContainer>
                     <TasksDone>Concluídas</TasksDone>
                     <TaskCount>
-                        <InfoCount>8</InfoCount>
+                        <InfoCount>{tasks.filter( task => task.isDone === true).length}</InfoCount>
                     </TaskCount>
                 </InfoTaskContainer>
             </Summary>
@@ -70,8 +78,11 @@ export function Home() {
                     keyExtractor={item => item.id}
                     renderItem={({item}) => (
                         <Task 
+                            id={item.id}
                             content={item.content}
+                            isDone={item.isDone}
                             onRemoveTask={() => handleDeleteTask(item.id)}
+                            onToggleTask={toggleTask}
                         />
                     )}
 
