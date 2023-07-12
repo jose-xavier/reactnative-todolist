@@ -4,7 +4,7 @@ import { PlusCircle } from "phosphor-react-native";
 import { Button,Form, HomeContainer, InfoCount, InfoTaskContainer, Input, ListContainer, Summary, TaskCount, TasksCreated, TasksDone } from "./styles";
 import { Task } from "../../components/Task";
 import { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Alert } from "react-native";
 
 
 interface Task {
@@ -29,7 +29,18 @@ export function Home() {
     }
 
     function handleDeleteTask(id: string) {
-       setTasks( tasks => tasks.filter( task => task.id !== id ))
+
+        Alert.alert("Remover tarefa", "Realmente deseja remover essa tarefa?",[
+            {
+                text: "Sim",
+                onPress: () => setTasks( tasks => tasks.filter( task => task.id !== id ))
+            },
+            {
+                text: "Não",
+                style: "cancel"
+            }
+        ])
+        
     }
 
     function toggleTask(id: string) {
@@ -37,8 +48,6 @@ export function Home() {
 
         setTasks(tasksWithChangedSituation)
     }
-
-    const tasksDoned = tasks.filter(task => task.isDone === true)
 
     console.log(tasks)
     return (
@@ -81,7 +90,7 @@ export function Home() {
                             id={item.id}
                             content={item.content}
                             isDone={item.isDone}
-                            onRemoveTask={() => handleDeleteTask(item.id)}
+                            onRemoveTask={handleDeleteTask}
                             onToggleTask={toggleTask}
                         />
                     )}

@@ -6,7 +6,7 @@ interface TaskProps {
     id: string;
     content: string;
     isDone: boolean;
-    onRemoveTask: () => void;
+    onRemoveTask: (id: string) => void;
     onToggleTask: (id: string) => void;
 }
 
@@ -16,6 +16,11 @@ export function Task({ content, onRemoveTask, onToggleTask, isDone, id }: TaskPr
     function handleToggleTask() {
         onToggleTask(id)
     }
+
+    function handleDeleteTask() {
+        onRemoveTask(id)
+    }
+
     return (
         <TaskContainer>
             
@@ -33,7 +38,7 @@ export function Task({ content, onRemoveTask, onToggleTask, isDone, id }: TaskPr
                            
                         
                          : 
-                            <IconContainer situation="a">
+                            <IconContainer situation="uncompleted">
                                 <Circle 
                                     size={25} 
                                     color= "#5E60CE"
@@ -47,11 +52,11 @@ export function Task({ content, onRemoveTask, onToggleTask, isDone, id }: TaskPr
                         isDone === true ?
                             <TaskContent situation="done">{content}</TaskContent>
                         :
-                            <TaskContent situation="a">{content}</TaskContent>
+                            <TaskContent situation="uncompleted">{content}</TaskContent>
                     }
                 
             
-            <TouchableOpacity onPress={onRemoveTask}>
+            <TouchableOpacity onPress={handleDeleteTask}>
                 <TrashIcon 
                     size={20} 
                     color="#808080"

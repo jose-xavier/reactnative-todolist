@@ -3,7 +3,7 @@ import { css } from "styled-components";
 import styled from "styled-components/native";
 
 interface IconProps {
-    situation: "done" | "a"
+    situation: "done" | "uncompleted"
 }
 
 
